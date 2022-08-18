@@ -1,0 +1,62 @@
+#include <Arduino.h>
+
+#include <XPT2046_Touchscreen.h>
+#include <SPI.h>
+#include <TFT_eSPI.h> // Hardware-specific library
+
+#define CS_PIN 17
+// MOSI=11, MISO=12, SCK=13
+
+// XPT2046_Touchscreen ts(CS_PIN);
+// #define TIRQ_PIN 22
+XPT2046_Touchscreen ts(CS_PIN); // Param 2 - NULL - No interrupts
+// XPT2046_Touchscreen ts(CS_PIN, 255);  // Param 2 - 255 - No interrupts
+// XPT2046_Touchscreen ts(CS_PIN, TIRQ_PIN); // Param 2 - Touch IRQ Pin - interrupt enabled polling
+
+TFT_eSPI tft = TFT_eSPI(); // Invoke custom library
+unsigned long targetTime = 0;
+#define TFT_BL 13
+uint8_t TftBackground = 150;
+
+void setup()
+{
+  /* tft backgroud lighting setting */
+  pinMode(TFT_BL, OUTPUT);
+  analogWrite(TFT_BL, TftBackground);
+
+  /* tft screen settings */
+  tft.init();
+  tft.setRotation(1);
+  tft.fillScreen(TFT_BLACK);
+
+  /* touch settings */
+  Serial.begin(19200);
+  ts.begin();
+  ts.setRotation(1);
+
+  targetTime = millis() + 1000;
+}
+
+void loop()
+{
+  if (targetTime < millis())
+  {
+    targetTime = millis() + 100;
+    tft.setCursor(70, 175, 4);              // Set cursor to x = 70, y = 175
+    tft.setTextColor(TFT_WHITE, TFT_BLACK); // Set text colour to white and background to black
+    tft.println("White on black");
+  }
+
+  if (ts.touched())
+  {
+    TS_Point p = ts.getPoint();
+    Serial.print("Pressure = ");
+    Serial.print(p.z);
+    Serial.print(", x = ");
+    Serial.print(p.x);
+    Serial.print(", y = ");
+    Serial.print(p.y);
+    delay(30);
+    Serial.println();
+  }
+}
