@@ -46,6 +46,8 @@
 **注意**: 我用SPI通道1而不是通道0，所以我必须在platformio.ini中添加如下语句：
 
 ~~~ini
+; Platformio.ini
+
 -DTFT_SPI_PORT=1
 ~~~
 
@@ -64,7 +66,7 @@
 然后，我们需要连接接线：
 
 * TOUCH_RX GP16
-* TOUCH_CS GP17(note in this picture)
+* TOUCH_CS GP17(连接不在图中)
 * TOUCH_SCK GP18
 * TOUCH_TX GP19
 

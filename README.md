@@ -46,6 +46,8 @@ As a PlatformIO project, most eSPI settings are defined on platformio.ini. Pleas
 **NOTE**: I use SPI channel 1 instead of channel 0, so I must write below in platformio.ini.
 
 ~~~ini
+; Platformio.ini
+
 -DTFT_SPI_PORT=1
 ~~~
 
@@ -64,7 +66,7 @@ Acorrding to [the author's description](https://github.com/PaulStoffregen/XPT204
 Then, we need connect the wires:
 
 * TOUCH_RX GP16
-* TOUCH_CS GP17(note in this picture)
+* TOUCH_CS GP17(connect not in this photo)
 * TOUCH_SCK GP18
 * TOUCH_TX GP19
 
