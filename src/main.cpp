@@ -104,10 +104,6 @@ void my_touchpad_read(lv_indev_drv_t *indev_driver, lv_indev_data_t *data)
   {
     data->state = LV_INDEV_STATE_REL;
   }
-  // if (ts.tirqTouched())
-  // {
-
-  // }
 }
 
 void setup()
@@ -119,7 +115,7 @@ void setup()
 
   Serial.begin(115200); /* prepare for possible serial debug */
 
-  String LVGL_Arduino = "Hello Arduino! ";
+  String LVGL_Arduino = "LVGL ver: ";
   LVGL_Arduino += String('V') + lv_version_major() + "." + lv_version_minor() + "." + lv_version_patch();
 
   Serial.println(LVGL_Arduino);
@@ -168,29 +164,20 @@ void setup()
   lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);
 
   labelPoint = lv_label_create(lv_scr_act());
-  lv_label_set_text_fmt(labelPoint, "%d, %d", screenPointX, screenPointY);
+  lv_label_set_text_fmt(labelPoint, "Point:%d, %d", screenPointX, screenPointY);
   lv_obj_align(labelPoint, LV_ALIGN_CENTER, 0, 50);
 
   roller1 = lv_roller_create(lv_scr_act());
   lv_roller_set_options(roller1,
-                        "January\n"
-                        "February\n"
-                        "March\n"
-                        "April\n"
-                        "May\n"
-                        "June\n"
-                        "July\n"
-                        "August\n"
-                        "September\n"
-                        "October\n"
-                        "November\n"
-                        "December",
+                        "Welcome\n"
+                        "My\n"
+                        "Program",
                         LV_ROLLER_MODE_INFINITE);
 
   lv_roller_set_visible_row_count(roller1, 4);
   lv_obj_center(roller1);
   lv_obj_add_event_cb(roller1, event_handler, LV_EVENT_ALL, NULL);
-  lv_obj_align(roller1, LV_ALIGN_CENTER, 0, -50);
+  lv_obj_align(roller1, LV_ALIGN_LEFT_MID, 10, 0);
 
   Serial.println("Setup done");
 }
